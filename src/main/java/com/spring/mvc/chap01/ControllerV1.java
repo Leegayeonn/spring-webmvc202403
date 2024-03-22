@@ -45,17 +45,17 @@ public class ControllerV1 {
 
     // 2. @RequestParam 사용하기
     // 파라미터 변수명과 매개변수명을 동일하게 맞추면 @RequestParam 를 생략할 수 있다.
-    @PostMapping("/food")
-    public String food(@RequestParam("foodName") String name,
-                       String category, // @RequestParam 이름과 매개변수이름이 동일하면 생략가능
-                       int price) {
-
-        System.out.println("category = " + category);
-        System.out.println("name = " + name);
-        System.out.println("price = " + price);
-
-        return  null;
-    }
+//    @PostMapping("/food")
+//    public String food(@RequestParam("foodName") String name,
+//                       String category, // @RequestParam 이름과 매개변수이름이 동일하면 생략가능
+//                       int price) {
+//
+//        System.out.println("category = " + category);
+//        System.out.println("name = " + name);
+//        System.out.println("price = " + price);
+//
+//        return  null;
+//    }
     
     // 3. DTO(Data Transfer Object) 객체 사용 -> 커맨드 객체를 활용한 파라미터 처리
     // 처리해야 할 파라미터 양이 많거나, 서로 연관되어 있는 데이터인 경우 사용.
