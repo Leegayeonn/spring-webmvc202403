@@ -1,6 +1,8 @@
 package com.spring.mvc.chap04.repository;
 
+import com.spring.mvc.chap04.entity.Person;
 import com.spring.mvc.chap04.entity.Score;
+import jdk.jfr.Percentage;
 
 /**
  * 성적정보를 잘 저장하고 조회하고 수정하고 삭제하는 역할
@@ -17,3 +19,4 @@ public interface ScoreRepository {
     // 성적 정보 등록
     boolean save(Score score);
 }
+
