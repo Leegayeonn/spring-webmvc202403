@@ -88,11 +88,70 @@
                 </label>
             </form>
 
+            <hr>
 
+            <form action="/score/remove" method="post" name="scoreForm">
+                <ul class="score-list">
+                    <li class="list-header">
+                        <div class="count">총 학생 수: ${sList.size()}명</div>
+                        <div class="sort-link-group">
+                            <div><a href="/score/list?sort=num">학번순</a></div>
+                            <div><a href="/score/list?sort=name">이름순</a></div>
+                            <div><a href="/score/list?sort=avg">평균순</a></div>
+                        </div>
+                    </li>
+                    <c:forEach var="s" items="${sList}">
+                        <li>
+                            # 학번: ${s.stuNum},
+                            이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.maskingName}</a>,
+                            평균: ${s.average}점, 학점: ${s.grade}
+                            <a class="del-btn" href="${s.stuNum}">삭제</a>
+                        </li>
+                    </c:forEach>
+                    <input type="hidden" name="stuNum" id="stu-num">
+                </ul>
+            </form>
 
-            
         </section>
+
     </div>
+
+    <script>
+
+        // 삭제 버튼 클릭 이벤트 처리
+        const $del = document.querySelector('.score-list');
+
+        $del.addEventListener('click', e => {
+            console.log('ul에 이벤트 발생!');
+            if(!e.target.matches('.del-btn')) return; // 삭제 버튼이 아니라면 이벤트 강제종료.
+
+            e.preventDefault(); // 태그의 고유기능 중지 -> a태그가 동작하면 안됨!
+            
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                
+                // a태그에 미리 셋팅해 놓은 href에 작성된 학생번호를 얻어오자.
+                const stuNum = e.target.getAttribute('href');
+                
+                // hidden으로 숨겨진 input 태그의 value 로 stuNum을 넣어주자.
+                document.getElementById('stu-num').value = stuNum;
+
+                // 폼 태그 제출
+                document.scoreForm.submit();
+
+            } else {
+                return; // 삭제 취소
+             } 
+
+
+
+        })
+        
+
+
+
+
+
+    </script>
 
 
 
