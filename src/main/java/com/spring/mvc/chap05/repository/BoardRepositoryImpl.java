@@ -66,6 +66,7 @@ public class BoardRepositoryImpl implements BoardRepository {
      */
     @Override
     public void save(Board board) {
+        System.out.println("kekekek");
         String sql = "INSERT INTO tbl_board (title,content,writer) VALUES(?,?,?);";
 
         template.update(sql, board.getTitle(), board.getContent(), board.getWriter());
