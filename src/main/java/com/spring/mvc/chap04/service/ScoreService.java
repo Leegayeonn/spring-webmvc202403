@@ -5,6 +5,7 @@ import com.spring.mvc.chap04.dto.ScoreResponseDTO;
 import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap04.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,6 +60,15 @@ public class ScoreService {
 
     public Score findOne(int stuNum) {
         return repository.findOne(stuNum);
+    }
+
+    public void update(ScoreRequestDTO dto, int stuNum) {
+        // 클라이언트가 수정할 데이터를 보냄.
+        // -> 1. DB에 저장되어 있는 기존 데이터를 조회해서 수정 진행.
+        // -> 2. 새로운 Score 객체를 생성해서 점수를 세팅하고 총점, 평균, 학점을 계산 (이걸로 선택)
+        Score changeScore = new Score(dto);
+        changeScore.setStuNum(stuNum); // 학생번호는 따로셋팅
+        repository.update(changeScore);
     }
 }
 
