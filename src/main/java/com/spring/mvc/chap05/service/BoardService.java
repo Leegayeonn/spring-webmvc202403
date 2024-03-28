@@ -1,11 +1,12 @@
 package com.spring.mvc.chap05.service;
 
 
+import com.spring.mvc.chap05.common.Page;
 import com.spring.mvc.chap05.dto.request.BoardWriterRequestDTO;
 import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
-import com.spring.mvc.chap05.repository.BoardRepository;
+import com.spring.mvc.chap05.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +17,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private final BoardRepository repository;
-
+//    private final BoardRepository mapper;
+    private final BoardMapper mapper; // mybatis 가 우리가 만든 xml 을 클래스로 변환해서 객체를 주입해 줌.
 
     public void write(BoardWriterRequestDTO dto) {
         Board board = new Board(dto);  // dto를 엔터티로 변환
-        repository.save(board);
+        mapper.save(board);
     }
 
     public void delete(int bno) {
 
-        repository.delete(bno);
+        mapper.delete(bno);
     }
 
     public void findOne(int boardNo) {
-        repository.findOne(boardNo);
+        mapper.findOne(boardNo);
     }
 
 
-    // repository 로 부터 전달받은 entity List 를 DTO List 로 변환하여 컨트롤러에게 리턴.
-    public List<BoardListResponseDTO> getList() {
+    // mapper 로 부터 전달받은 entity List 를 DTO List 로 변환하여 컨트롤러에게 리턴.
+    public List<BoardListResponseDTO> getList(Page page) {
         List<BoardListResponseDTO> dtoList = new ArrayList<>();
-        List<Board> boardList = repository.findAll();
+        List<Board> boardList = mapper.findAll(page);
         for (Board board : boardList) {
             BoardListResponseDTO dto = new BoardListResponseDTO(board);
             dtoList.add(dto);
@@ -47,9 +48,9 @@ public class BoardService {
 
     public BoardDetailResponseDTO detail(int bno) {
         //상세보기니까 조회수를 하나 올려주는 처리를 해야한다.
-        repository.updateViewCount(bno);
+        mapper.updateViewCount(bno);
 
-        Board board = repository.findOne(bno);
+        Board board = mapper.findOne(bno);
 
 
         BoardDetailResponseDTO dto = new BoardDetailResponseDTO(board);

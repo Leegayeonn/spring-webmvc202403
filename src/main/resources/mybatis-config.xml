@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+    <settings>
+    <!-- 카멜케이스와 스네이크케이스 자동 변환 설정(sql 은 스네이크케이스, java 는 카멜케이스이기 때문에 변환이 필요)-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+    <!-- 조회된 결과가 없을 시에 null 을 리턴해주는 설정 -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+
+    <!-- resultType 엔터티 클래스 별칭 설정 -->
+    <typeAliases>
+        <typeAlias type="com.spring.mvc.chap05.entity.Board" alias="board" />
+    </typeAliases>
+
+    <!-- SQL 을 적어놓은 XML 파일의 위치를 설정 -->
+    <mappers>
+        <mapper resource="mapper/BoardMapper.xml" />
+    </mappers>
+
+</configuration>
