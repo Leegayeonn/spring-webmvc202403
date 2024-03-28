@@ -2,6 +2,7 @@ package com.spring.mvc.chap05.service;
 
 
 import com.spring.mvc.chap05.dto.request.BoardWriterRequestDTO;
+import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardRepository;
@@ -23,8 +24,9 @@ public class BoardService {
         repository.save(board);
     }
 
-    public void delete(int boardNo) {
-        repository.delete(boardNo);
+    public void delete(int bno) {
+
+        repository.delete(bno);
     }
 
     public void findOne(int boardNo) {
@@ -41,5 +43,16 @@ public class BoardService {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    public BoardDetailResponseDTO detail(int bno) {
+        //상세보기니까 조회수를 하나 올려주는 처리를 해야한다.
+        repository.updateViewCount(bno);
+
+        Board board = repository.findOne(bno);
+
+
+        BoardDetailResponseDTO dto = new BoardDetailResponseDTO(board);
+        return dto;
     }
 }

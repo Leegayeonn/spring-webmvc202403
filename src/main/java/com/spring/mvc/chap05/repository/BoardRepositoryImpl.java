@@ -79,4 +79,11 @@ public class BoardRepositoryImpl implements BoardRepository {
         template.update(sql, boardNo);
 
     }
+
+    @Override
+    public void updateViewCount(int bno) {
+        String sql = "UPDATE tbl_board SET view_count = view_count + 1 WHERE board_no = ?";
+
+        template.update(sql, bno);
+    }
 }

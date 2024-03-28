@@ -2,12 +2,14 @@ package com.spring.mvc.chap05.controller;
 
 
 import com.spring.mvc.chap05.dto.request.BoardWriterRequestDTO;
+import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,10 +55,10 @@ public class BoardController {
     // 4. 글 삭제 요청 (/board/delete : GET)
     // 글번호 전달되는 삭제 진행
     @GetMapping("/delete")
-    public String delete(int boardNo) {
-        System.out.println("/board/delete : GET!!");
+    public String delete(int bno) {
+        System.out.println("/board/delete : GET!!" + bno);
 
-        service.delete(boardNo);
+        service.delete(bno);
 
         return "redirect:/board/list";
     }
@@ -64,11 +66,14 @@ public class BoardController {
     // 5. 글 상세보기 요청 (/board/detail : GET)
     // 글 번호 전달되면 해당 내용 상세보기 처리
     // chap05/detail.jsp
-    @GetMapping("/detail")
-    public String detail(int boardNo) {
-        System.out.println("/board/detail : GET!!");
+    @GetMapping("/detail/{bno}")
+    public String detail(@PathVariable("bno") int bno,Model model) {
+        System.out.println("/board/detail : GET!!" + bno);
 
-        service.findOne(boardNo);
+        BoardDetailResponseDTO dto = service.detail(bno);
+
+        model.addAttribute("b", dto);
+
         return "chap05/detail";
     }
 
