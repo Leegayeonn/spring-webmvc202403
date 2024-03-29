@@ -7,6 +7,24 @@
 <!-- namespace 에는 이 파일과 연동될 인터페이스의 전체 경로 (패키지명 포함 클래스명)를 적는다. -->
 <mapper namespace="com.spring.mvc.chap05.mapper.BoardMapper">
 
+    <sql id="search">
+        <!-- my SQL 문법 :'%', #{keyword}, '%', 오라클 문법 : '%'|| #{keyword} ||'%' -->
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'writer'">
+            WHERE writer LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </sql>
+
+
     <!-- 구현하고자 하는 인터페이스에 명세된 추상 메서드별로 SQL 작성 -->
     <!-- id 에는 추상메서드 이름을 적음. (인터페이스에 명시된 메서드) -->
     <!-- SQL 작성할 때 값을 전달하는 방법은
@@ -43,6 +61,7 @@
          행이 여러개면 알아서 리스트로 만들어주기때문에 그냥 객체로 작성 -->
     <select id="findAll" resultType="com.spring.mvc.chap05.entity.Board">
         SELECT * FROM tbl_board
+        <include refid="search"/>  <!-- 메서드 맨 위에 있음 가져올때는 include 사용 -->
         ORDER BY board_no DESC
         LIMIT #{pageStart}, #{amount}
     </select>
@@ -55,6 +74,7 @@
     <select id="getCount" resultType="int">
         SELECT COUNT(*)
         FROM tbl_board
+        <include refid="search"/>
     </select>
 
 
