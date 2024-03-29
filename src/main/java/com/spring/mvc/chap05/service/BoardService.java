@@ -56,4 +56,8 @@ public class BoardService {
         BoardDetailResponseDTO dto = new BoardDetailResponseDTO(board);
         return dto;
     }
+
+    public int getCount() {
+        return mapper.getCount();
+    }
 }

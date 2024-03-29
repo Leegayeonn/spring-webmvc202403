@@ -1,7 +1,12 @@
 package com.spring.mvc.chap05.common;
 
 import com.mysql.cj.jdbc.BlobFromLocator;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter @ToString @EqualsAndHashCode
 public class PageMaker {
 
     // 페이지 버튼

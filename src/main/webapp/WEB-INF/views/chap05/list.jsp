@@ -99,19 +99,24 @@
                                          href="#">&lt;&lt;</a>
                 </li>
 
-                <li class="page-item"><a class="page-link"
-                                         href="#">prev</a>
-                </li>
+                <c:if test="${maker.prev}">
+                    <li class="page-item"><a class="page-link"
+                        href="/board/list?pageNo=${maker.begin - 1}">prev</a>
+                    </li>
+                </c:if>
 
-                <li data-page-num="" class="page-item">
-                    <a class="page-link"
-                       href="#">${i}</a>
-                </li>
+                <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1"> <!-- step="1"이면 생략가능함-->
+                    <li data-page-num="${i}" class="page-item">
+                        <a class="page-link"
+                        href="/board/list?pageNo=${i}">${i}</a>
+                    </li>
+                </c:forEach>
 
-
-                <li class="page-item"><a class="page-link"
-                                         href="#">next</a>
-                </li>
+                <c:if test="${maker.next}">
+                    <li class="page-item"><a class="page-link"     
+                        href="/board/list?pageNo=${maker.end + 1}">next</a>
+                    </li>
+                </c:if>
 
                 <li class="page-item"><a class="page-link"
                                          href="#">&gt;&gt;</a>
@@ -235,6 +240,31 @@
   document.querySelector('.add-btn').onclick = e => {
     window.location.href = '/board/write';
   };
+
+
+  // 사용자가 현재 머물고 있는 페이지 버튼에 active 스타일 부여
+  function appendPageActive() {
+    
+    // 현재 서버에서 넘겨준 페이지 번호
+    const currPage = '${maker.page.pageNo}';
+
+    // li 태그들을 전부 확인해서 
+    // 현재 페이지 번호와 일치하는 li를 찾은 후 avtive 클래스 이름 붙이기
+    const $ul = document.querySelector('.pagination');
+    const $liList = [...$ul.children]; // 유사 배열을 진짜 배열로 바꾸기 위해 스프레드 문법 사용
+
+    $liList.forEach($li => {
+        if (currPage === $li.dataset.pageNum) {
+            $li.classList.add('active');
+        }
+    });
+  }
+
+  appendPageActive();
+
+
+
+
 
 
 </script>
