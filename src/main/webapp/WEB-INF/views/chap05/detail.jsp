@@ -174,7 +174,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <c:if test="${not empty login}">
+                    
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="form-group">
@@ -188,29 +188,21 @@
 
 
                                     <div class="profile-box">
-                                        <c:choose>
-                                            <c:when test="${login.profile != null}">
-                                                <img src="/local${login.profile}" alt="프사">
-                                            </c:when>
-                                            <c:otherwise>
                                                 <img src="/assets/img/anonymous.jpg" alt="프사">
-                                            </c:otherwise>
-                                        </c:choose>
                                     </div>
 
 
                                     <label for="newReplyWriter" hidden>댓글 작성자</label>
                                     <input id="newReplyWriter" name="replyWriter" type="text"
                                            class="form-control" placeholder="작성자 이름"
-                                           style="margin-bottom: 6px;" value="${login.nickName}" readonly>
+                                           style="margin-bottom: 6px;">
                                     <button id="replyAddBtn" type="button"
                                             class="btn btn-dark form-control">등록
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </c:if>
-
+                    
                 </div>
             </div> <!-- end reply write -->
 

@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 @ToString @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder  // 각 필드별로 메서드 만들어줌
 public class Board {
 
     private int boardNo; // 게시글 번호
