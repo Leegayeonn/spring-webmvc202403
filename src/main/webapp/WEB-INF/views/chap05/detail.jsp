@@ -269,6 +269,98 @@
 
 </div>
 
+    <script>
+
+        const URL = '/api/v1/replies'; // 댓글과 관련된 요청 url을 전역변수화
+        const bno = '${b.boardNo}'; // 게시글 번호를 전역변수화.
+
+
+        // 서버에 실시간으로 비동기통신을 해서 JSON을 받아오는 함수
+        function fetchGetReplies() {
+            // fetch 함수를 통해 비동기통신 진행할때 GET 요청은 요청에 관련한 객체를 따로 전달하지않습니다.
+            // method를 get 이라고 얘기하지않고, 데이터 전달 시에는 URL에 포함시켜서 전달.
+            // 자바스크립트 문자열 안에 ${}를 쓰면 el로 인식, 템플릿 리터럴 문자를 쓰고싶으면 앞에 \를 붙여주세요
+            fetch(`\${URL}/\${bno}`)  // fetch(URL + '/' + bno)도 가능
+        }
+
+
+        const $addBtn = document.getElementById('replyAddBtn');
+
+        $addBtn.onclick = e => {
+
+            const $replyText = document.getElementById('newReplyText'); // 댓글 내용
+            const $replyWriter = document.getElementById('newReplyWriter'); // 댓글 작성자
+        
+            // 공백이 제거된 값을 얻음.
+            const textVal = $replyText.value.trim();
+            const writerVal = $replyWriter.value.trim();
+
+            // 사용자 입력값 검증
+            if (textVal === '') {
+                alert('댓글 내용은 필수값입니다.');
+                return;
+            } else if (writerVal === '') {
+                alert('댓글 작성자는 필수값입니다!!');
+                return;
+            } else if (writerVal.length < 2 || writerVal.length > 8) {
+                alert('댓글 작성자는 2글자에서 8글자 사이로 작성하세요!');
+                return;
+            }
+
+            // 서버로 보낼 데이터 준비.
+            const payload = {
+                text: textVal,
+                author: writerVal,
+                bno: bno
+            };
+
+            // 요청 방식 및 데이터를 전달할 정보 객체 만들기(POST)
+            const requestInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payload) // js 객체를 JSON으로 변환해서 body에 추가
+            }
+
+            // 서버에 POST 요청 보내기
+            fetch(URL, requestInfo)
+                // then(callbackFn) -> 비동기 통신의 결과를 확인하기 위해 then과 콜백함수 전달
+                // 콜백함수의 매개변수로 응답정보가 담긴 Response 객체가 전달되고, 
+                // Response 객체에서 json 데이터를 꺼내고 싶으면 json(), 단순 텍스트라면 text(). 
+                .then(res => {
+                    console.log(res.status); // 서버에서 전달한 응답상태코드(200, 400)
+
+                    if (res.status === 200) {
+                        alert('댓글이 정상 등록되었습니다.');
+                        return res.text();
+                    } else {
+                        alert('입력값에 문제가 있습니다. 입력값 재확인이 필요합니다!');
+                        return res.text();
+                    }
+                })
+                .then(data => {
+                    console.log('응답 성공!', data);
+                    // 댓글 작성자 input과 댓글 내용 text를 지워주자.
+                    $replyText.value = '';
+                    $replyWriter.value = '';
+
+                    // 댓글 목록 비동기 요청이 들어가야한다.
+                    // 따로 함수로 빼주겠습니다 (등록 이후 뿐만 아니라 게시글 상세보기에 처음 들어왔을때에도 호출되어야함)
+                    fetchGetReplies();
+
+
+
+
+                });
+
+
+
+        }
+
+
+    </script>
+
 
 
 </body>
