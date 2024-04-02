@@ -5,6 +5,7 @@ package com.spring.mvc.chap05.service;
 
 import com.spring.mvc.chap05.common.Page;
 import com.spring.mvc.chap05.common.PageMaker;
+import com.spring.mvc.chap05.dto.request.ReplyModifyRequestDTO;
 import com.spring.mvc.chap05.dto.request.ReplyPostRequestDTO;
 import com.spring.mvc.chap05.dto.response.ReplyDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.ReplyListResponseDTO;
@@ -52,6 +53,17 @@ public class ReplyService {
                 .build();
 
 
+    }
+
+    public void modify(ReplyModifyRequestDTO dto) {
+
+        Reply reply = dto.toEntity();
+        mapper.modify(reply);
+
+    }
+
+    public void delete(Integer replyNo) throws Exception {
+        mapper.delete(replyNo);
     }
 }
 
