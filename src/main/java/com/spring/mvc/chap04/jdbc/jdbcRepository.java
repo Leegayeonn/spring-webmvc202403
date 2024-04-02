@@ -19,7 +19,7 @@ public class jdbcRepository {
     // 자바 프로그램과 데이터베이스간에 객체가 드나들 길을 뚫어놓는다 생각하기.
     public jdbcRepository() {
         try {
-            Class.forName("/com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
