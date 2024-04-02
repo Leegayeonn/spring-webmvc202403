@@ -25,13 +25,15 @@
 
     <select id="findAll" resultType="com.spring.mvc.chap05.entity.Reply">
         SELECT * FROM tbl_reply
-        WHERE board_no = #{boardNo}
+        WHERE board_no = #{bn}
         ORDER BY reply_no DESC
+        LIMIT #{p.pageStart}, #{p.amount}
     </select>
 
     <select id="findOne" resultType="reply">
         SELECT * FROM tbl_reply
         WHERE reply_no = #{replyNo}
+
     </select>
 
 

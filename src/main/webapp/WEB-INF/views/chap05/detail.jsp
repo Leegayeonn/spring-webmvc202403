@@ -274,9 +274,48 @@
         const URL = '/api/v1/replies'; // 댓글과 관련된 요청 url을 전역변수화
         const bno = '${b.boardNo}'; // 게시글 번호를 전역변수화.
 
-        // 화면에 댓글태그들을 렌더링 하는 함수
-        function renderReplies(replies) {
+        //  화면에 페이지 버튼들을 렌더링 하는 함수
+        // 매개변수 선언부에 처음부터 디스트러쳐링해서 받을 수 있다.
+        function renderPage({begin, next, end, prev, page, finalPage}) { 
             
+            let tag = '';
+
+            // 이전 버튼 만들기
+            if (prev) {
+                tag += `<li class='page-item'><a class='page-link page-active' href='\${begin - 1}'>이전</a></li>`;
+            }
+
+            // 페이지 번호 버튼 리스트 만들기
+            for (let i=begin; i<=end; i++) {
+                let active = '';
+                if (page.pageNo === i) {
+                    active = ' p-active';
+                }
+                
+                tag += `<li class='page-item \${active}'><a class='page-link page-custom' href='\${i}'>\${i}</a></li>`;
+            }
+
+            // 다음 버튼 만들기
+            if (next) {
+                tag += `<li class='page-item'><a class='page-link page-active' href='\${end + 1}'>다음</a></li>`;
+            }
+
+            // 페이지태그 렌더링
+            const $pageUl = document.querySelector('.pagination');
+            $pageUl.innerHTML = tag;
+
+
+        }
+
+
+
+
+        // 화면에 댓글태그들을 렌더링 하는 함수
+        function renderReplies(replyList) {
+            
+            // 객체 디스트럭처링 (댓글수, 페이지메이커, 댓글목록으로 분해)
+            const {count, pageInfo, replies} = replyList;
+
             let tag = ''; // 값이 변할예정이므로 let으로 선언
 
             if (replies !== null && replies.length > 0) {
@@ -313,22 +352,26 @@
 
                 
             } else {
-                tag += "<div id='replyContent' class='card-body'>댓글이 아직 없습니다! ㅠㅠ</div>";
+                tag += "<div id='replyContent' class='card-body'>****** 무플방지 ***** 꺄륵 </div>";
             }
             // 댓글 수 렌더링
-            document.getElementById('replyCnt').textContent = replies.length;
+            document.getElementById('replyCnt').textContent = count;
             // 댓글 렌더링
             // 반복문을 이용해서 문자열로 작성한 tag를 댓글영역 div에 innerHTML로 그대로 삽입.
             document.getElementById('replyData').innerHTML = tag;
+
+            // 페이지 렌더링 함수 호출
+            renderPage(pageInfo);
+
         }
 
 
         // 서버에 실시간으로 비동기통신을 해서 JSON을 받아오는 함수
-        function fetchGetReplies() {
+        function fetchGetReplies(pageNo = 1) { // 댓글 목록 요청시 페이지번호 전달(전달되지않으면 기본값 1)
             // fetch 함수를 통해 비동기통신 진행할때 GET 요청은 요청에 관련한 객체를 따로 전달하지않습니다.
             // method를 get 이라고 얘기하지않고, 데이터 전달 시에는 URL에 포함시켜서 전달.
             // 자바스크립트 문자열 안에 $중괄호를 쓰면 el로 인식, 템플릿 리터럴 문자를 쓰고싶으면 앞에 \를 붙여주세요
-            fetch(`\${URL}\/\${bno}`)  // fetch(URL + '/' + bno)도 가능
+            fetch(`\${URL}\/\${bno}/page/\${pageNo}`)  // fetch(URL + '/' + bno)도 가능
                 .then(res => res.json())
                 .then(replyList => {
                     console.log(replyList);
@@ -340,7 +383,7 @@
                 });
         }
 
-
+        // 댓글 등록 부분
         const $addBtn = document.getElementById('replyAddBtn');
 
         $addBtn.onclick = e => {

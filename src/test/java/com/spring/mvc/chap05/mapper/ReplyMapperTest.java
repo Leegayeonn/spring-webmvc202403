@@ -50,7 +50,7 @@ class ReplyMapperTest {
         // given
 
         // when
-        List<Reply> replyList = replyMapper.findAll(77);
+        List<Reply> replyList = replyMapper.findAll(77, page);
 
         boardMapper.findOne(77);
 
@@ -64,7 +64,7 @@ class ReplyMapperTest {
         // given
 
         // when
-        List<Reply> replyList = replyMapper.findAll(77);
+        List<Reply> replyList = replyMapper.findAll(77, page);
 
         replyMapper.delete(111);
 
