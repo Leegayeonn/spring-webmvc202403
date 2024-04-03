@@ -1,5 +1,7 @@
 package com.spring.mvc.chap05.entity;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 /*
@@ -16,6 +18,11 @@ import java.time.LocalDateTime;
    );
 
  */
+@Setter @Getter @ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Member {
 
     private String account;

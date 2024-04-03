@@ -453,6 +453,7 @@
                     console.log(res.status); // 서버에서 전달한 응답상태코드(200, 400)
 
                     if (res.status === 200) {
+
                         alert('댓글이 정상 등록되었습니다.');
                         return res.text();
                     } else {
