@@ -17,7 +17,7 @@
 
 
         <h2 class="intro-text">
-            Welcome ${sessionScope.login == null ? '' : login.name} 님 환영합니다!
+            Welcome ${sessionScope.login == null ? '' : login.name}
         </h2>
         <a href="#" class="menu-open">
             <span class="menu-txt">MENU</span>

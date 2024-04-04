@@ -7,6 +7,7 @@ import com.spring.mvc.chap05.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -105,6 +106,33 @@ public class MemberController {
 
 
     }
+    
+    // 로그아웃 요청 처리
+    @GetMapping("/sign-out")  // a 태그로 들어오면 getMapping
+    public String signOut(HttpSession session) {
+
+        // 세션에서 로그인 정보 기록 삭제 -> 특정 데이터 하나만 지울때 사용
+        session.removeAttribute("login");
+
+        // 세션 전체 무효화(초기화) -> 전부다 무효화!
+        session.invalidate();
+
+        return "redirect:/";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 
