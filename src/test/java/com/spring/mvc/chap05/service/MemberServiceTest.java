@@ -43,7 +43,7 @@ class MemberServiceTest {
                 .build();
 
         // when
-        LoginResult result = memberService.authenticate(dto);
+        LoginResult result = memberService.authenticate(dto, request.getSession(), response);
 
         // then
         assertEquals(SUCCESS, result);

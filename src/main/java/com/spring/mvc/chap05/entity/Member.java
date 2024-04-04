@@ -31,4 +31,24 @@ public class Member {
     private String email;
     private Auth auth;
     private LocalDateTime regDate;
+
+    // 기존 테이블에서 컬럼을 추가했음
+    // DB 테이블과 1:1 로 매칭되는 Entity 도 필드가 증가해야 한다.
+    private String sessionId;
+    private LocalDateTime limitTime;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

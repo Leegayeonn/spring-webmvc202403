@@ -43,7 +43,11 @@
         WHERE reply_no = #{replyNo}
     </delete>
 
-
+    <update id="saveAutoLogin">
+        UPDATE tbl_member
+        SET session_id = #{sessionId}, limit_time = #{limitTime}
+        WHERE account = #{account}
+    </update>
 
 
 
