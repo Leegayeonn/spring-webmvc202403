@@ -34,7 +34,7 @@ public class Board {
     public Board(BoardWriterRequestDTO dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        this.writer = dto.getWriter();
+//        this.writer = dto.getWriter();
 //        this.regDate = LocalDateTime.now();
     }
 }

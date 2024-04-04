@@ -8,7 +8,10 @@ import com.spring.mvc.chap05.dto.request.BoardWriterRequestDTO;
 import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.service.BoardService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")  // 공통 URL
+@Slf4j
 public class BoardController {
 
     private final BoardService service;
@@ -55,11 +59,10 @@ public class BoardController {
     // BoardWriterRequestDTO 를 활용하여 파라미터 처리 -> dto.request 패키지에 생성
     // 등록 완료 후에는 목록 조회 요청이 다시 들어오게끔 처리.
     @PostMapping("/write")
-    public String write(BoardWriterRequestDTO dto) {
-        System.out.println("/board/write : POST!!");
+    public String write(BoardWriterRequestDTO dto, HttpSession session) {
+        log.info("/board/write : POST, dto: {}", dto);
 
-        service.write(dto);
-
+        service.write(dto, session);
         return "redirect:/board/list";
     }
     

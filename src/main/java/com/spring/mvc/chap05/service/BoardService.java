@@ -7,6 +7,8 @@ import com.spring.mvc.chap05.dto.response.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.mapper.BoardMapper;
+import com.spring.mvc.util.LoginUtils;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,11 @@ public class BoardService {
 //    private final BoardRepository mapper;
     private final BoardMapper mapper; // mybatis 가 우리가 만든 xml 을 클래스로 변환해서 객체를 주입해 줌.
 
-    public void write(BoardWriterRequestDTO dto) {
+    public void write(BoardWriterRequestDTO dto, HttpSession session) {
         Board board = new Board(dto);  // dto를 엔터티로 변환
+        // 이제는 화면단에서 작성자가 전달되지않음.
+        // 세션에서 현재 로그인 중인 사용자의 아이디를 얻어와서 따로 세팅.
+        board.setWriter(LoginUtils.getCurrentLoginMemberAccount(session));
         mapper.save(board);
     }
 
