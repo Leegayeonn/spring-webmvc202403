@@ -4,8 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert Your Title</title>
+    <%@ include file="./include/static-head.jsp" %>
+
+    <style>
+
+       
+        #welcome {
+
+            width: 400px;
+            height: 50px;
+            margin-top: 120px;
+            font-size: 40px;
+            color: white;
+            background-color: yellowgreen;
+            text-align: center;
+
+        }
+
+
+    </style>
 </head>
 <body>
+
+    <%@ include file="./include/header.jsp" %>
 
     <%
         String userName = "방문자";
@@ -18,12 +39,10 @@
             }
         }
 
-    %>\
+    %>
 
+    <h1 id="welcome"><%= userName %> 님 안녕하세요!</h1>
 
-    <h1><%= userName %> 님 안녕하세요!</h1>
-
-    <h1>Hello Spring!!</h1>
 
 
 </body>

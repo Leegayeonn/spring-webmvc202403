@@ -43,7 +43,6 @@ public class BoardService {
             BoardListResponseDTO dto = new BoardListResponseDTO(board);
             dtoList.add(dto);
 
-            System.out.println(dto);
         }
         return dtoList;
     }
