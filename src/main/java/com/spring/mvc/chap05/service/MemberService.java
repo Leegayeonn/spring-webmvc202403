@@ -8,11 +8,13 @@ import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.mapper.MemberMapper;
 import com.spring.mvc.util.LoginUtils;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import java.time.LocalDateTime;
 
@@ -119,6 +121,33 @@ public class MemberService {
     }
 
 
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+
+        // 1. 자동 로그인 쿠키를 가져온다.
+        Cookie c = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+
+        // 2. 쿠키를 삭제한다. (쿠키를 지우는 메서드가 없으므로)
+        // -> 쿠키의 수명을 0초로 설정하여 다시 클라이언트에 전송 -> 자동 소멸
+        if (c != null) {
+            c.setMaxAge(0);
+            c.setPath("/");
+            response.addCookie(c);
+
+            // 3. DB 에서도 세션아이디와 만료시간을 제거하자.
+            memberMapper.saveAutoLogin(
+                    AutoLoginDTO.builder()
+                            .sessionId("none") // 세션아이디 지우기
+                            .limitTime(LocalDateTime.now()) // 로그아웃한 현재 날짜 지정
+                            .account(getCurrentLoginMemberAccount(request.getSession())) // 로그인 중이었던 사용자 아이디.
+                            .build()
+            );
+        }
+
+
+
+
+
+    }
 }
 
 

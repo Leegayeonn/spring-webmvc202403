@@ -7,12 +7,14 @@
         <h1 class="logo">
             <a href="/board/list">
                 <img src="/assets/img/logo.png" alt="로고이미지">
+                꾸러기
             </a>
         </h1>
 
         <!-- 프로필 사진 -->
         <div class="profile-box">
                 <img src="/assets/img/anonymous.jpg" alt="프사">
+                
         </div>
 
 
