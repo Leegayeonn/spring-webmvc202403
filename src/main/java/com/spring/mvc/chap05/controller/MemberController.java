@@ -28,7 +28,7 @@ import static com.spring.mvc.util.LoginUtils.*;
 public class MemberController {
 
     // properties 파일에 작성한 값을 가져오는 아노테이션
-    @Value("${}file.upload.root-path")
+    @Value("${file.upload.root-path}")
     private String rootPath;
 
     private final MemberService memberService;

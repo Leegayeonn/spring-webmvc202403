@@ -34,7 +34,7 @@ public class MemberService {
         // 패스워드 인코딩하여 엔터티로 변환해서 전달.
 //        String encodedPw = encoder.encode(dto.getPassword());
 //        dto.setPassword(encodedPw);  -> 간략하게 표현가능->dto 엔터티 매개변수로 encoder 설정
-        memberMapper.save(dto.toEntity(encoder, savePath ));
+        memberMapper.save(dto.toEntity(encoder, savePath));
 
     }
     
@@ -111,6 +111,7 @@ public class MemberService {
                 .name(foundMember.getName())
                 .email(foundMember.getEmail())
                 .auth(foundMember.getAuth().getDescription())
+                .profile(foundMember.getProfileImage())
                 .build();
         
     // 세션에 로그인한 회원 정보를 저장

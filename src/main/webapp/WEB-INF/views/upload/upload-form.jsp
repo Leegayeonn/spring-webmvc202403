@@ -35,7 +35,7 @@
   enctype(인코딩 타입)을 mulyipart/form-data로 반드시 지정해야 전송됩니다.
 -->
 <form action="/upload-file" method="post" enctype="multipart/form-data">
-  <input id="img-input" type="file" name="thumbnail" accept="image/*">
+  <input id="img-input" type="file" name="thumbnail" accept="image/*">  
   <button type="submit">전송</button>
 </form>
 

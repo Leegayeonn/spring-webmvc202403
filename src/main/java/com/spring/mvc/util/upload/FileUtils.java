@@ -21,7 +21,6 @@ public class FileUtils {
      * @return - 업로드가 완료되었을 경우 업로드 된 파일의 위치 경로
      *                   ex)  /2023/12/29/djfalsjdflaksjlfdsaj_고양이.jpg
      */
-
     public static String uploadFile(MultipartFile file, String rootPath) {
 
         // 원본 파일명을 중복이 없는 랜덤이름으로 변경
@@ -30,7 +29,7 @@ public class FileUtils {
         // 이 파일을 날짜별로 관리하기 위해 날짜별 폴더를 생성
         String newUploadPath = makeDateFormatDirectory(rootPath);
 
-        // 파일의 풀 경로 생성
+        // 파일의 풀 경로를 생성
         String fullPath = newUploadPath + "/" + newFileName;
 
         // 파일 업로드 수행
@@ -51,9 +50,8 @@ public class FileUtils {
      *
      * @param rootPath - 파일 업로드 루트 경로  (ex) D:/spring-prj/upload
      * @return - 날짜 폴더 경로가 포함된 새로운 업로드 경로
-     *           (ex)  D:/spring-prj/upload/2023/12/29
+     * (ex)  D:/spring-prj/upload/2023/12/29
      */
-
     private static String makeDateFormatDirectory(String rootPath) {
 
         // 오늘 날짜 정보 출력
@@ -68,7 +66,7 @@ public class FileUtils {
         for (String s : dateInfo) {
             directoryPath += "/" + s;
             File f = new File(directoryPath);
-            if (!f.exists()) f.mkdirs();
+            if (!f.exists()) f.mkdir();
         }
 
         return directoryPath;
@@ -80,70 +78,10 @@ public class FileUtils {
      * @param n - 원본 일자나 월자
      * @return - 앞에 0이붙은 일자나 월자
      */
-
     private static String len2(int n) {
-        return new DecimalFormat("00").format(n);  // 한글자일때 앞에 0을 붙혀줌
+        return new DecimalFormat("00").format(n);
     }
 
 
 
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
