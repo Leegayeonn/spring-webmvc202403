@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Getter @Setter @ToString
@@ -30,13 +31,17 @@ public class SignUpRequestDTO {
     @Email // 이메일 형식을 검증해주는 아노테이션
     private String email;
 
+    // 프로필 사진 파일
+    private MultipartFile profileImage;  // 변수명을 jsp랑 똑같이
+
     // dto 를 entity 로 변환하는 유틸메서드
-    public Member toEntity(PasswordEncoder encoder) {
+    public Member toEntity(PasswordEncoder encoder, String savePath) {
         return Member.builder()
                 .account(account)
                 .password(encoder.encode(password))
                 .name(name)
                 .email(email)
+                .profileImage(savePath)
                 .build();
     }
 

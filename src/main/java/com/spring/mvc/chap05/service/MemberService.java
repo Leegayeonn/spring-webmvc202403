@@ -6,7 +6,6 @@ import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.mapper.MemberMapper;
-import com.spring.mvc.util.LoginUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,13 +28,13 @@ public class MemberService {
     private final PasswordEncoder encoder;
 
     // 회원 가입 처리 서비스
-    public void join(SignUpRequestDTO dto) {
+    public void join(SignUpRequestDTO dto, String savePath) {
 
         // 클라이언트가 보낸 회원가입 데이터를
         // 패스워드 인코딩하여 엔터티로 변환해서 전달.
 //        String encodedPw = encoder.encode(dto.getPassword());
 //        dto.setPassword(encodedPw);  -> 간략하게 표현가능->dto 엔터티 매개변수로 encoder 설정
-        memberMapper.save(dto.toEntity(encoder));
+        memberMapper.save(dto.toEntity(encoder, savePath ));
 
     }
     

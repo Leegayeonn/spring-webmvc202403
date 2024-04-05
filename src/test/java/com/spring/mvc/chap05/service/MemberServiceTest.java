@@ -29,7 +29,7 @@ class MemberServiceTest {
                 .build();
 
         // when
-        memberService.join(dto);
+        memberService.join(dto, savePath);
         // then
     }
     
