@@ -37,6 +37,8 @@ public class Member {
     private String sessionId;
     private LocalDateTime limitTime;
 
+
+
 }
 
 

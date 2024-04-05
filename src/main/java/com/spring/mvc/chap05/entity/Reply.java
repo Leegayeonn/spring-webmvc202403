@@ -18,7 +18,18 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 
-@Getter @Setter @ToString
+/*
+    ALTER TABLE tbl_reply
+    ADD account VARCHAR(50);
+
+    ALTER TABLE tbl_reply
+    ADD CONSTRAINT fk_reply_account
+    FOREIGN KEY (account)
+    REFERENCES tbl_member (account)
+    ON DELETE CASCADE;
+ */
+
+@Getter @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,9 +38,39 @@ public class Reply {
 
 
     private int replyNo;
+    @Setter
     private String replyText;
+    @Setter
     private String replyWriter;
     private LocalDateTime replyDate;
     private int boardNo;
     private LocalDateTime updateDate;
+    @Setter
+    private String account;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
