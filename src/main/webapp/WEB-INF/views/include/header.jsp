@@ -5,7 +5,7 @@
 <header>
     <div class="inner-header">
         <h1 class="logo">
-            <a href="/board/list">
+            <a href="/">
                 <img src="/assets/img/logo.png" alt="로고이미지">
                 꾸러기
             </a>

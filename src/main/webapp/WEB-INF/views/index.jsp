@@ -47,8 +47,14 @@
 
 
         <h2 class="intro-text">
-            Welcome ${sessionScope.login == null ? '로그인을 해주세요' : login.name} 
-            ${sessionScope.login == null ? '' : '님 안녕하세요!'}
+
+            <
+            <a href="/members/sign-in">
+
+                ${sessionScope.login == null ? '로그인 하기' : login.name} 
+                ${sessionScope.login == null ? '' : '님 안녕하세요!'}
+
+            </a>
         </h2>
         <a href="#" class="menu-open">
             <span class="menu-txt">MENU</span>

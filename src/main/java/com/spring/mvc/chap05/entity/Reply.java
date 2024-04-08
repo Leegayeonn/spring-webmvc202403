@@ -47,6 +47,8 @@ public class Reply {
     private LocalDateTime updateDate;
     @Setter
     private String account;
+
+    private String profileImage;  // tbl_member 와 조인하고 난 후 변수 설정해줌
 }
 
 

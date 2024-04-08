@@ -336,13 +336,17 @@
                 
                 for (let reply of replies) {
                     // 객체 디스트럭쳐링
-                    const {rno, writer, text, regDate, updateDate, account} = reply;
+                    const {rno, writer, text, regDate, updateDate, account, profile} = reply;
 
                     tag += `
                     <div id='replyContent' class='card-body' data-replyId='\${rno}'>
                         <div class='row user-block'>
                             <span class='col-md-8'>
                         `;
+
+                        // 프사가 있으면 해당 프사를 보여주고 프사가 없으면 기본프로필사진 (삼항연산식으로 작성)
+                    tag += (profile ? `<img class='reply-profile' src='/local\${profile}' alt='profile image' >`
+                                      : `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`  );    
 
                     tag += `<b>\${writer}</b>
                             </span>
