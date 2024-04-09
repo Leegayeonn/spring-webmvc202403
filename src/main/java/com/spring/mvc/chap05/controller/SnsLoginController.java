@@ -1,7 +1,6 @@
 package com.spring.mvc.chap05.controller;
 
 import com.spring.mvc.chap05.service.SnsLoginService;
-import jdk.jfr.StackTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +25,7 @@ public class SnsLoginController {
 
     @GetMapping("/kakao/login")
     public String kakaoLogin() {
-        String uri = "https://sns.kakao.com/oauth/authorize";
+        String uri = "https://kauth.kakao.com/oauth/authorize";
         uri += "?client_id=" + kakaoAppKey;
         uri += "&redirect_uri=" + kakaoRedirectUri;
         uri += "&response_type=code";
@@ -37,43 +36,18 @@ public class SnsLoginController {
     // 인가 코드 받기
     @GetMapping("/auth/kakao")
     public String snsKakao(String code) {
-        log.info("카카오 로그인 인가코드: {}", code);
+        log.info("카카오 로그인 인가 코드: {}", code);
 
-        // 인가 코드를 가지고 카카오 인증 서버에 토큰 발급 요청을 보내자 (서버 투 서버 통신)
+        // 인가 코드를 가지고 카카오 인증 서버에 토큰 발급 요청을 보내자 (server to server 통신)
         // 서비스에게 시킬 것임.
         Map<String, String> params = new HashMap<>();
         params.put("appKey", kakaoAppKey);
-        params.put("redirect" ,kakaoRedirectUri);
+        params.put("redirect", kakaoRedirectUri);
         params.put("code", code);
 
         snsLoginService.kakaoLogin(params);
 
-
-
-
-
+        return "";
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
