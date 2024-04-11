@@ -197,7 +197,14 @@
                                     </c:if>
 
                                     <c:if test="${login.profile != null}">
-                                        <img src="/display${login.profile}" alt="프사">
+                                        <c:choose>
+                                            <c:when test="${login.loginMethod == 'COMMON'}">
+                                                <img src="/display${login.profile}" alt="프사">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${login.profile}" alt="프사">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:if>
 
                                 </div>
@@ -287,6 +294,7 @@
         const bno = '${b.boardNo}'; // 게시글 번호를 전역변수화.
         const currentAccount = '${login.account}'; // 로그인한 사람 계정
         const auth = '${login.auth}'; // 로그인한 사람 권한
+        
 
         //  화면에 페이지 버튼들을 렌더링 하는 함수
         // 매개변수 선언부에 처음부터 디스트러쳐링해서 받을 수 있다.
@@ -336,7 +344,7 @@
                 
                 for (let reply of replies) {
                     // 객체 디스트럭쳐링
-                    const {rno, writer, text, regDate, updateDate, account, profile} = reply;
+                    const {rno, writer, text, regDate, updateDate, account, profile, loginMethod} = reply;
 
                     tag += `
                     <div id='replyContent' class='card-body' data-replyId='\${rno}'>
@@ -344,9 +352,23 @@
                             <span class='col-md-8'>
                         `;
 
-                        // 프사가 있으면 해당 프사를 보여주고 프사가 없으면 기본프로필사진 (삼항연산식으로 작성)
-                    tag += (profile ? `<img class='reply-profile' src='/local\${profile}' alt='profile image' >`
-                                      : `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`  );    
+                    let profileTag = '';
+                    if (profile) {
+                        if (loginMethod.trim() === 'COMMON') {
+                            profileTag = `<img class='reply-profile' src='/local\${profile}' alt='profile image' >`;
+                        } else {
+                            profileTag = `<img class='reply-profile' src='\${profile}' alt='profile image' >`;
+                        }
+                    } else {
+                        profileTag =  `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`;
+                    }
+
+                    tag += profileTag;
+
+                    //     // 프사가 있으면 해당 프사를 보여주고 프사가 없으면 기본프로필사진 (삼항연산식으로 작성)
+                    // tag += (profile ? `<img class='reply-profile' src='/local\${profile}' alt='profile image' >`
+                    //                   : `<img class='reply-profile' src='/assets/img/anonymous.jpg' alt='anonymous image'>`  );    
+
 
                     tag += `<b>\${writer}</b>
                             </span>

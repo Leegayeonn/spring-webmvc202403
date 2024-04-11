@@ -6,88 +6,12 @@
     <title>Insert Your Title</title>
     <%@ include file="./include/static-head.jsp" %>
 
-    <style>
-
-        .logo {
-            color: white;
-            
-        }
-       
-        #welcome {
-
-            width: 400px;
-            height: 50px;
-            margin-top: 120px;
-            font-size: 40px;
-            color: white;
-            background-color: yellowgreen;
-            text-align: center;
-        }
-
-
-    </style>
+  
 </head>
 <body>
 
-    <!-- header -->
-<header>
-    <div class="inner-header">
-        <h1 class="logo">
-            <a href="/">
-                <img src="/assets/img/logo.png" alt="로고이미지">
-                꾸러기
-            </a>
-            
-        </h1>
-
-        <!-- 프로필 사진 -->
-        <div class="profile-box">
-                <img src="/assets/img/anonymous.jpg" alt="프사">
-        </div>
-
-
-        <h2 class="intro-text">
-
-            <c:if test="${login != null}">
-                <a href="/members/sign-in">
+    <%@ include file="./include/header.jsp" %>
     
-                    ${sessionScope.login == null ? '로그인 하기' : login.name} 
-                    ${sessionScope.login == null ? '' : '님 안녕하세요!'}
-    
-                </a>
-            </c:if>
-        </h2>
-        <a href="#" class="menu-open">
-            <span class="menu-txt">MENU</span>
-            <span class="lnr lnr-menu"></span>
-        </a>
-    </div>
-
-    <nav class="gnb">
-        <a href="#" class="close">
-            <span class="lnr lnr-cross"></span>
-        </a>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="/board/list">Board</a></li>
-            <li><a href="#">Contact</a></li>
-
-            <c:if test="${login == null}">
-                <li><a href="/members/sign-up">Sign Up</a></li>
-                <li><a href="/members/sign-in">Sign In</a></li>
-            </c:if>
-
-            <c:if test="${sessionScope.login != null}">
-                <li><a href="#">My Page</a></li>
-                <li><a href="/members/sign-out">Sign Out</a></li>
-            </c:if>
-
-        </ul>
-    </nav>
-
-</header>
-<!-- //header -->
 
     
 

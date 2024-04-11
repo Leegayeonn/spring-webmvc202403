@@ -31,6 +31,8 @@ public class ReplyDetailResponseDTO {
     // 프로필사진 경로
     private String profile;
 
+    private String loginMethod;
+
     // 엔터티를 DTO 로 바꿔주는 생성자
     public ReplyDetailResponseDTO(Reply reply) {
         this.rno = reply.getReplyNo();
@@ -40,6 +42,7 @@ public class ReplyDetailResponseDTO {
         this.updateDate = reply.getUpdateDate();
         this.account = reply.getAccount();
         this.profile = reply.getProfileImage();
+        this.loginMethod= reply.getLoginMethod();
 
     }
 

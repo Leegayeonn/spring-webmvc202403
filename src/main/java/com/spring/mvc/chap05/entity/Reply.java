@@ -49,6 +49,8 @@ public class Reply {
     private String account;
 
     private String profileImage;  // tbl_member 와 조인하고 난 후 변수 설정해줌
+
+    private String loginMethod;
 }
 
 

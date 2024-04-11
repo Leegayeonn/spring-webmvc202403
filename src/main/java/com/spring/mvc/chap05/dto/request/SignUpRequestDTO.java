@@ -34,6 +34,8 @@ public class SignUpRequestDTO {
     // 프로필 사진 파일
     private MultipartFile profileImage;  // 변수명을 jsp 랑 똑같이
 
+    private Member.LoginMethod loginMethod;
+
     // dto 를 entity 로 변환하는 유틸메서드
     public Member toEntity(PasswordEncoder encoder, String savePath) {
         return Member.builder()
@@ -42,6 +44,7 @@ public class SignUpRequestDTO {
                 .name(name)
                 .email(email)
                 .profileImage(savePath)
+                .loginMethod(loginMethod)
                 .build();
     }
 
